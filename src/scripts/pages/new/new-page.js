@@ -174,12 +174,15 @@ export default class NewPage {
     const centerCoordinate = this.#map.getCenter();
     const draggableMarker = this.#map.addMarker(
       [centerCoordinate.latitude, centerCoordinate.longitude],
-      { draggable: 'true' },
     );
     draggableMarker.addEventListener('move', (event) => {
       const coordinate = event.target.getLatLng();
       this.#updateLatLngInput(coordinate.lat, coordinate.lng);
     });
+    this.#map.addMapEventListener('click', (event) => {
+      draggableMarker.setLatLng(event.latlng);
+      event.sourceTarget.flyTo(event.latlng);
+  });
   }
   #updateLatLngInput(lat, lon) {
     this.#form.elements.namedItem('latitude').value = lat;

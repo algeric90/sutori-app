@@ -121,4 +121,7 @@ export default class Map {
       longitude: lng,
     };
   }
+  addMapEventListener(eventName, callback) {
+    this.#map.addEventListener(eventName, callback);
+  }
 }
