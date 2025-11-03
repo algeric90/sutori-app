@@ -1,2 +1,2 @@
-APP_URL=<url_aplikasi>
+APP_URL=https://algeric90.github.io/sutori-app/#/login
 MAP_SERVICE_API_KEY=<api_key>
