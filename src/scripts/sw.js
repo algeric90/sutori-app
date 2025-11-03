@@ -64,14 +64,15 @@ registerRoute(
 );
 
 self.addEventListener('push', (event) => {
-  console.log('Service worker pushing...');
- 
-  async function chainPromise() {
-    const data = await event.data.json();
-    await self.registration.showNotification(data.title, {
-      body: data.options.body,
-    });
+  let data = {};
+  try {
+    data = event.data.json();
+  } catch (e) {
+    data = { title: 'Default title', options: { body: event.data.text() } };
   }
- 
-  event.waitUntil(chainPromise());
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.options.body,
+    })
+  );
 });
